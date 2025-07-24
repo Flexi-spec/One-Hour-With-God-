@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>1 Hour With God</title>
+  <link rel="icon" href="logo.png" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Georgia', serif
+      background: white;
+      color: #a67c00;
+    }
+    #splash {
+      background: gold;
+      color: white;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      animation: fadeOut 2s 3s forwards;
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+    .container {
+      padding: 2rem;
+      display: none;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: gold;
+      text-align: center;
+    }
+    .section {
+      margin-top: 2rem;
+      border-left: 6px solid gold;
+      padding-left: 1rem;
+    }
+    button {
+      background: gold;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      display: block;
+      margin: 2rem auto;
+    }
+    #timer {
+      font-size: 2rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    #verse {
+      font-style: italic;
+      text-align: center;
+      margin-top: 1rem;
+      color: #333;
+    }
+    #end {
+      text-align: center;
+      display: none;
+      margin-top: 2rem;
+    }
+    a {
+      color: gold;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div id="splash">
+  <img src="logo.jpg" alt="1 Hour With God Logo" style="width: 120px; height: 120px;" />
+  <h1>1 Hour With God</h1>
+</div>
+
+<div class="container" id="main">
+  <h1>Let’s Begin: One Hour With God</h1>
+  <div id="timer">Start the Hour</div>
+  <button onclick="startHour()">Start Now</button>
+
+  <div class="section" id="current-section"></div>
+  <div id="verse"></div>
+
+  <div id="end">
+    <h2>🔥 Hour Completed!</h2>
+    <p>“Thank You, Holy Spirit. I receive all You’ve done today.”</p>
+    <p>“Lord, seal this time. Let fruit come from it.”</p>
+    <p>Join our group: <a href="https://chat.whatsapp.com/B8VFLMixMEcKlAWkzh8wyU">Hearts Set Apart ♥️🔥</a></p>
+    <p>Contact: <a href="tel:+2347071341687">+234 707 134 1687</a></p>
+  </div>
+</div>
+
+<script>
+  const sections = [
+    {
+      title: "0 – 10 min: WORSHIP 🎶",
+      tips: "Put on a worship song that stirs your heart. Whisper or sing. 'Jesus, I love You' is enough."
+    },
+    {
+      title: "10 – 20 min: PRAISE & GRATITUDE 🙌",
+      tips: "Thank God for life, peace, growth. Call Him Provider, Healer, Friend, Father."
+    },
+    {
+      title: "20 – 30 min: SPEAKING IN TONGUES 🔥",
+      tips: "Let the Spirit flow through your mouth. It’s not about how it sounds, it’s about surrender."
+    },
+    {
+      title: "30 – 40 min: SCRIPTURE MEDITATION 📖",
+      tips: "Read a chapter slowly (like Psalms). Pause. Ask, 'Lord, what are You showing me?'"
+    },
+    {
+      title: "40 – 50 min: LISTENING & STILLNESS 🌿",
+      tips: "No talking. Just breathe and listen. Let God speak through peace or thoughts."
+    },
+    {
+      title: "50 – 60 min: HEARING & SHARING FROM GOD ✨",
+      tips: "Ask, 'Lord, what do You want me to know?' Write what you hear. Pray or declare it aloud."
+    }
+  ];
+
+  const verses = [
+    "Psalm 46:10 – 'Be still and know that I am God.'",
+    "Isaiah 40:31 – 'They that wait upon the Lord shall renew their strength…'",
+    "Romans 8:26 – 'The Spirit helps us in our weakness…'",
+    "John 15:5 – 'Apart from Me you can do nothing.'",
+    "Philippians 4:6 – 'Be anxious for nothing, but in everything by prayer…'",
+    "Psalm 119:105 – 'Your word is a lamp to my feet…'"
+  ];
+
+  let index = 0;
+  let timer;
+  let timeLeft = 600;
+
+  function showSection(i) {
+    const section = sections[i];
+    document.getElementById("current-section").innerHTML = `<h2>${section.title}</h2><p>${section.tips}</p>`;
+    document.getElementById("verse").textContent = verses[i];
+  }
+
+  function startHour() {
+    document.querySelector("button").style.display = "none";
+    showSection(index);
+    document.getElementById("timer").textContent = "10:00";
+    startTimer();
+  }
+
+  function startTimer() {
+    timer = setInterval(() => {
+      let min = Math.floor(timeLeft / 60);
+      let sec = timeLeft % 60;
+      document.getElementById("timer").textContent = `${min}:${sec.toString().padStart(2, "0")}`;
+      timeLeft--;
+      if (timeLeft < 0) {
+        navigator.vibrate(1000);
+        clearInterval(timer);
+        index++;
+        if (index < sections.length) {
+          timeLeft = 600;
+          showSection(index);
+          startTimer();
+        } else {
+          document.getElementById("main").querySelector(".section").style.display = "none";
+          document.getElementById("verse").style.display = "none";
+          document.getElementById("timer").style.display = "none";
+          document.getElementById("end").style.display = "block";
+        }
+      }
+    }, 1000);
+  }
+
+  // Splash timeout and show container
+  setTimeout(() => {
+    document.getElementById("splash").style.display = "none";
+    document.getElementById("main").style.display = "block";
+  }, 4000);
+</script>
+
+</body>
+</html>
